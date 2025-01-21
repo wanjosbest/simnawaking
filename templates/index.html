@@ -1,0 +1,126 @@
+{% extends "base.html"%}
+{% block header%} 
+{% include "header.html" %}
+{% endblock %}
+{% block body %}
+<body class="bg-gray-900 text-white">
+   
+<div class="flex flex-col justify-center items-center h-full space-y-12">
+    <!-- First Carousel -->
+    <div class="carousel-container relative w-full max-w-8xl overflow-hidden">
+        <h3 class="text-2xl font-semibold text-center mb-6">TRENDING SONGS</h3>
+        <button class="carousel-btn absolute top-1/2 -translate-y-1/2 left-4 bg-gray-800 hover:bg-white hover:text-black text-white text-xl p-2 rounded-full z-10 transition" data-carousel-id="carousel1-prev">
+            &#10094;
+        </button>
+        <div class="carousel flex gap-4 transition-transform duration-500" id="carousel1">
+            {% for trending in trending %}
+            <div class="flex-none w-72 text-center bg-gray-800 rounded-lg p-4 shadow-lg">
+                <a href="{{trending.post.get_absolute_url}}">
+                <img src="{{trending.post.image.url}}" alt="{{trending.post.title}}" class="w-full h-36 object-cover rounded-md mb-2">
+                <h3 class="text-lg font-semibold mb-2">{{trending.post.title}}</h3>
+                </a>
+                <p class="text-sm text-gray-400">{{trending.post.user}}</p>
+            </div>
+            {% endfor %}
+        </div>  
+          
+        <button class="carousel-btn absolute top-1/2 -translate-y-1/2 right-4 bg-gray-800 hover:bg-white hover:text-black text-white text-xl p-2 rounded-full z-10 transition" data-carousel-id="carousel1-next">
+            &#10095;
+        </button>
+    </div>
+
+    <!-- Second Carousel -->
+    <div class="carousel-container relative w-full max-w-8xl overflow-hidden">
+        <h3 class="text-2xl font-semibold text-center mb-6">PROMOTED SONGS</h3>
+        <button class="carousel-btn absolute top-1/2 -translate-y-1/2 left-4 bg-gray-800 hover:bg-white hover:text-black text-white text-xl p-2 rounded-full z-10 transition" data-carousel-id="carousel2-prev">
+            &#10094;
+        </button>
+        <div class="carousel flex gap-4 transition-transform duration-500" id="carousel2">
+            {% for promoted in promotedsongs %}
+            <div class="flex-none w-72 text-center bg-gray-800 rounded-lg p-4 shadow-lg">
+                <a href="{{promoted.post.get_absolute_url}}">
+                <img src="{{promoted.post.image.url}}" alt="{{promoted.post.title}}" class="w-full h-36 object-cover rounded-md mb-2">
+                <h3 class="text-lg font-semibold mb-2">{{promoted.post.title}}</h3>
+                </a>
+                <p class="text-sm text-gray-400">{{promoted.post.user}}</p>
+            </div>
+          {% endfor %}
+           
+        </div>
+        <button class="carousel-btn absolute top-1/2 -translate-y-1/2 right-4 bg-gray-800 hover:bg-white hover:text-black text-white text-xl p-2 rounded-full z-10 transition" data-carousel-id="carousel2-next">
+            &#10095;
+        </button>
+    </div>
+
+    <!-- Third Carousel -->
+    <div class="carousel-container relative w-full max-w-8xl overflow-hidden">
+        <h3 class="text-2xl font-semibold text-center mb-6">RECENT SONGS</h3>
+        <button class="carousel-btn absolute top-1/2 -translate-y-1/2 left-4 bg-gray-800 hover:bg-white hover:text-black text-white text-xl p-2 rounded-full z-10 transition" data-carousel-id="carousel3-prev">
+            &#10094;
+        </button>
+        <div class="carousel flex gap-4 transition-transform duration-500" id="carousel3">
+            {% for recent in recentposts %}
+            <div class="flex-none w-72 text-center bg-gray-800 rounded-lg p-4 shadow-lg">
+                <a href="{{recent.get_absolute_url}}">
+                <img src="{{recent.image.url}}" alt="{{recent.title}}" class="w-full h-36 object-cover rounded-md mb-2">
+                <h3 class="text-lg font-semibold mb-2">{{recent.title}}</h3>
+               </a>
+                <p class="text-sm text-gray-400">{{recent.user}}</p>
+            </div>
+           {% endfor %}
+          
+        </div>
+        <button class="carousel-btn absolute top-1/2 -translate-y-1/2 right-4 bg-gray-800 hover:bg-white hover:text-black text-white text-xl p-2 rounded-full z-10 transition" data-carousel-id="carousel3-next">
+            &#10095;
+        </button>
+    </div>
+
+    
+
+
+
+     
+   
+</div>
+<script>
+    // Function to handle carousel scroll
+    function setupCarousel(carouselId) {
+        const carousel = document.querySelector(`#${carouselId}`);
+        const prevBtn = document.querySelector(`[data-carousel-id='${carouselId}-prev']`);
+        const nextBtn = document.querySelector(`[data-carousel-id='${carouselId}-next']`);
+
+        let scrollAmount = 0;
+
+        nextBtn.addEventListener('click', () => {
+            const containerWidth = document.querySelector('.carousel-container').offsetWidth;
+            scrollAmount += containerWidth;
+            if (scrollAmount > carousel.scrollWidth - containerWidth) {
+                scrollAmount = carousel.scrollWidth - containerWidth;
+            }
+            carousel.style.transform = `translateX(-${scrollAmount}px)`;
+        });
+
+        prevBtn.addEventListener('click', () => {
+            const containerWidth = document.querySelector('.carousel-container').offsetWidth;
+            scrollAmount -= containerWidth;
+            if (scrollAmount < 0) {
+                scrollAmount = 0;
+            }
+            carousel.style.transform = `translateX(-${scrollAmount}px)`;
+        });
+    }
+
+    // Setup carousels
+    setupCarousel('carousel1');
+    setupCarousel('carousel2');
+    setupCarousel('carousel3');
+    setupCarousel('carousel4');
+  
+</script>
+    
+{%endblock%}
+
+{%block footer%}
+   
+{% include "footer.html" %}
+{% endblock %}
