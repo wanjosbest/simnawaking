@@ -3,12 +3,7 @@
 <title>SimnawaKing</title>
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Prevent horizontal overflow on mobile -->
-<style>
-  body {
-    overflow-x: hidden;
-  }
-</style>
+
 
 <!-- Navbar -->
 <nav class="bg-gray-800 shadow-lg sticky top-0 z-50">
@@ -37,7 +32,7 @@
         <form action="{% url "search"%}" method="POST">
           {% csrf_token %}
           <div class="relative">
-            <input type="text" placeholder="Search" class="bg-gray-700 text-gray-300 rounded-full px-2 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500 w-56" name="searched">
+            <input type="text" placeholder="Search" class="bg-gray-700 text-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500 w-56" name="searched">
             <span class="absolute right-3 top-2 text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" type="submit">
                 <path fill-rule="evenodd" d="M12.293 14.707a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM10 16a6 6 0 100-12 6 6 0 000 12z" clip-rule="evenodd" />
